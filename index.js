@@ -6,9 +6,11 @@ const slapp = require('slapp')({
   context: require('./lib/context'),
   log: true,
   colors: true,
-  ignoreSelf: true,
-  ignoreBots: true
+  ignoreSelf: false,
+  ignoreBots: false
 })
+
+slapp.message('morty', 'ambient', (msg) => msg.say('rick'))
 
 slapp.message('rick', 'ambient', (msg) => {
   request({
@@ -21,7 +23,14 @@ slapp.message('rick', 'ambient', (msg) => {
     }
 
     if (res.statusCode === 200) {
-      msg.say(body.what)
+      msg.say({
+        text: '',
+        attachments: [{
+          title: body.who,
+          pretext: body.what,
+          text: body.when
+        }]
+      })
     }
   })
 })
