@@ -24,10 +24,9 @@ slapp.message('rick', 'ambient', (msg) => {
 
     if (res.statusCode === 200) {
       msg.say({
-        text: '',
+        text: body.what,
         attachments: [{
           title: body.who,
-          pretext: body.what,
           text: body.when
         }]
       })
